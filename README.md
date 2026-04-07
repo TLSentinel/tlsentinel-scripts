@@ -93,6 +93,40 @@ python import_metadata_certs.py metadata.xml \
 
 ---
 
+## import_metadata_folder.py
+
+Bulk import a folder of SAML metadata XML files. For each file:
+
+- Uses the filename (without extension) as the endpoint name
+- Checks if a SAML endpoint with that name already exists
+- Creates one if it does not
+- Ingests all certificates found in the XML and links them to the endpoint with the correct `certUse` (signing/encryption)
+
+Useful for onboarding a directory of trading partner or IdP metadata files in one pass.
+
+**Examples:**
+
+```bash
+# Dry run — show what would be imported without touching the API
+python import_metadata_folder.py ./metadata/ --dry-run
+
+# Bulk import all XML files in the folder
+python import_metadata_folder.py ./metadata/ \
+    --server https://tlsentinel.example.com --token "$TOKEN"
+```
+
+Given a folder like:
+```
+metadata/
+  okta_idp.xml
+  azure_ad.xml
+  acme_partner.xml
+```
+
+This creates three SAML endpoints named `okta_idp`, `azure_ad`, and `acme_partner`, each with their signing and encryption certs ingested and linked.
+
+---
+
 ## Typical workflow
 
 ```bash
@@ -109,4 +143,8 @@ python import_metadata_certs.py \
     https://idp.example.com/saml/metadata \
     --server https://tlsentinel.example.com --token "$TOKEN" \
     --create-endpoint --endpoint-name "Corporate IdP"
+
+# 4. Bulk import a folder of trading partner metadata files
+python import_metadata_folder.py ./metadata/ \
+    --server https://tlsentinel.example.com --token "$TOKEN"
 ```
