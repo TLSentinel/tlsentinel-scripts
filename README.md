@@ -18,6 +18,24 @@ Password is prompted securely if `--password` is omitted.
 
 ---
 
+## create_scanner.py
+
+Create a scanner token. The raw token is printed once on creation and never retrievable again — save it immediately.
+
+```bash
+# Create a scanner with defaults (interval 3600s, concurrency 5)
+python create_scanner.py \
+    --server https://tlsentinel.example.com --token "$TOKEN" \
+    --name "prod-scanner-01"
+
+# Create with custom interval and concurrency
+python create_scanner.py \
+    --server https://tlsentinel.example.com --token "$TOKEN" \
+    --name "prod-scanner-01" --interval 1800 --concurrency 10
+```
+
+---
+
 ## import_cert.py
 
 Ingest a certificate file into TLSentinel. Optionally create or link to an endpoint.
