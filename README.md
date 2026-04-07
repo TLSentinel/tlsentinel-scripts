@@ -1,5 +1,7 @@
 # TLSentinel Scripts
 
+Requires **tlsentinel-server >= v2026.4.4**. Federation metadata imports with dual signing/encryption certificates require this version or later for correct cert use labelling.
+
 Utility scripts for interacting with the TLSentinel API. All scripts use Python stdlib only — no dependencies required unless noted.
 
 ---
